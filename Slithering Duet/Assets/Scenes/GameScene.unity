@@ -1076,13 +1076,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 274a17578af7a3b41811a8d47048eb09, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  StepDuration: 0.1
+  stepDuration: 0.1
   snakeDirection: 0
-  IsUsingCursor: 1
-  IsShieldActivated: 0
-  IsDoubleScore: 0
-  IsSpeedIncreased: 0
+  isUsingCursor: 1
+  isShieldActivated: 0
   CoolDownTime: 10
+  incrementalScore: 1
+  headPos: {x: 0, y: 0}
+  unitsToMove: 0
   SnakeSegments:
   - {fileID: 2017042326}
   - {fileID: 469889002}
@@ -1172,11 +1173,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e041ea478586efc4f98713d48515fe85, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Food: {fileID: 4400440523188119887, guid: 45efb7c993d13e342a92e6568bcc5bf8, type: 3}
-  MassBurner: {fileID: 3881123830761934948, guid: 2e08e1cadad490c419850d352e73ec01, type: 3}
-  SheildPowerup: {fileID: 3471529198166948897, guid: 0fce4ec9530990e4ba9eb4a29b428005, type: 3}
-  DoubleScorePowerup: {fileID: 5488037546367359302, guid: a8b15199e07fd114680a54d42354daa4, type: 3}
-  IncreaseSpeedPowerup: {fileID: 5995551434345351536, guid: 631f57223ae98f34f89b72e62f693d2a, type: 3}
+  foodController: {fileID: 4400440523188119886, guid: 45efb7c993d13e342a92e6568bcc5bf8, type: 3}
+  massBurnerController: {fileID: 3881123830761934949, guid: 2e08e1cadad490c419850d352e73ec01, type: 3}
+  sheildPowerupController: {fileID: 3471529198166948898, guid: 0fce4ec9530990e4ba9eb4a29b428005, type: 3}
+  doubleScoreController: {fileID: 2534608427506246875, guid: a8b15199e07fd114680a54d42354daa4, type: 3}
+  increaseSpeedPowerup: {fileID: 8392382414306664424, guid: 631f57223ae98f34f89b72e62f693d2a, type: 3}
   timeBetweenSpawns: 2
   Snake1: {fileID: 2023685434}
   Snake2: {fileID: 443015523}
@@ -1500,13 +1501,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 274a17578af7a3b41811a8d47048eb09, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  StepDuration: 0.1
+  stepDuration: 0.1
   snakeDirection: 0
-  IsUsingCursor: 0
-  IsShieldActivated: 0
-  IsDoubleScore: 0
-  IsSpeedIncreased: 0
+  isUsingCursor: 0
+  isShieldActivated: 0
   CoolDownTime: 10
+  incrementalScore: 1
+  headPos: {x: 0, y: 0}
+  unitsToMove: 0
   SnakeSegments:
   - {fileID: 1765172261}
   - {fileID: 93736926}
@@ -2475,13 +2477,13 @@ MonoBehaviour:
   SoundTypes:
   - soundType: 0
     soundClip: {fileID: 8300000, guid: c38ed630bf5966d4c9ab50c133ed6f72, type: 3}
-  - soundType: 4
-    soundClip: {fileID: 8300000, guid: 90dffb6ee925d274f981b40a68429734, type: 3}
-  - soundType: 5
+  - soundType: 3
     soundClip: {fileID: 8300000, guid: 90dffb6ee925d274f981b40a68429734, type: 3}
   - soundType: 3
-    soundClip: {fileID: 8300000, guid: 7e27e99bed21168488a2bdd79fb7ae87, type: 3}
+    soundClip: {fileID: 8300000, guid: 90dffb6ee925d274f981b40a68429734, type: 3}
   - soundType: 2
+    soundClip: {fileID: 8300000, guid: 7e27e99bed21168488a2bdd79fb7ae87, type: 3}
+  - soundType: 1
     soundClip: {fileID: 8300000, guid: 23f2f7f3490b1d44fbd615623ff4956a, type: 3}
 --- !u!4 &1879023546
 Transform:

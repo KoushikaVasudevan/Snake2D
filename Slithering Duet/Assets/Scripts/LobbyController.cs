@@ -6,10 +6,10 @@ using UnityEngine.SceneManagement;
 
 public class LobbyController : MonoBehaviour
 {
-    public Button playButton;
-    public Button OkButton;
+    [SerializeField] private Button playButton;
+    [SerializeField] private Button OkButton;
 
-    public GameObject GameInstructionsPopup;
+    [SerializeField] private GameObject GameInstructionsPopup;
 
     private void Awake()
     {

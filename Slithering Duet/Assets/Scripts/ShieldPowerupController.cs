@@ -2,20 +2,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ShieldPowerupController : MonoBehaviour
+public class ShieldPowerupController : MonoBehaviour, IPowerup
 {
-    public SnakeController snakeController;
-
-    void OnTriggerEnter2D(Collider2D collision)
+    public void ApplyPowerup(SnakeController snakeController)
     {
-        snakeController = collision.gameObject.GetComponent<SnakeController>();
-        if (snakeController != null)
-        {
-            SoundManager.Instance.Play(SoundManager.Sounds.PowerupPickup);
-            snakeController.IsShieldActivated = true;
+        SoundManager.Instance.Play(SoundManager.Sounds.PowerupPickup);
+        snakeController.ActivateShield();
 
-            Debug.Log("Shield Activated");
-            Destroy(gameObject);
-        }
+        Destroy(gameObject);
     }
 }

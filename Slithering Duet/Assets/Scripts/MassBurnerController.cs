@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class MassBurnerController : MonoBehaviour
 {
-    public SnakeController snakeController;
+    [SerializeField] private SnakeController snakeController;
 
     void OnTriggerEnter2D(Collider2D collision)
     {
@@ -14,7 +14,6 @@ public class MassBurnerController : MonoBehaviour
             SoundManager.Instance.Play(SoundManager.Sounds.HeartPickup);
             snakeController.RemoveSnakeSegment();
 
-            Debug.Log("MassBurner destroyed");
             Destroy(gameObject);
         }
     }
