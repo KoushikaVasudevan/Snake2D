@@ -2,20 +2,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class IncreaseSpeedPowerup : MonoBehaviour
+public class IncreaseSpeedPowerup : MonoBehaviour, IPowerup
 {
-    public SnakeController snakeController;
-
-    void OnTriggerEnter2D(Collider2D collision)
+    public void ApplyPowerup(SnakeController snakeController)
     {
-        snakeController = collision.gameObject.GetComponent<SnakeController>();
-        if (snakeController != null)
-        {
-            SoundManager.Instance.Play(SoundManager.Sounds.PowerupPickup);
-            snakeController.IsSpeedIncreased = true;
+        SoundManager.Instance.Play(SoundManager.Sounds.PowerupPickup);
+        snakeController.ActivateIncreaseSpeed();
 
-            Debug.Log("Speed increase powerup activated! " + collision.gameObject.tag + "'s speed is increased");
-            Destroy(gameObject);
-        }
+        Destroy(gameObject);
     }
 }

@@ -1,40 +1,36 @@
 using System.Collections.Generic;
-using System;
+using System.Collections;
 using UnityEngine;
 
 public class SnakeController : MonoBehaviour
 {
-    public float StepDuration = 0.01f;
+    [SerializeField] private float stepDuration = 0.01f;
     private float timeBeforeNextStep;
-    public Direction snakeDirection;
+    [SerializeField] private Direction snakeDirection;
 
-    public bool IsUsingCursor = false;
-    public bool IsShieldActivated = false;
-    public bool IsDoubleScore = false;
-    public bool IsSpeedIncreased = false;
+    [SerializeField] private bool isUsingCursor = false;
+    [SerializeField] private bool isShieldActivated = false;
 
-    public float CoolDownTime = 3f;
-    private float powerupDuration;
+    [SerializeField] private float CoolDownTime = 3f;
+    [SerializeField] private int incrementalScore = 1;
 
-    private Vector2 headPos;
-    private int unitsToMove;
+    [SerializeField] private Vector2 headPos;
+    [SerializeField] private int unitsToMove;
 
-    public List<GameObject> SnakeSegments;
+    [SerializeField] private List<GameObject> SnakeSegments;
 
-    public float topBoundary;
-    public float bottomBoundary;
+    [SerializeField] private float topBoundary;
+    [SerializeField] private float bottomBoundary;
+    [SerializeField] private float rightBoundary;
+    [SerializeField] private float leftBoundary;
 
-    public float rightBoundary;
-    public float leftBoundary;
-
-    public ScoreController scoreController;
-    public GameOverController gameOverController;
+    [SerializeField] private ScoreController scoreController;
+    [SerializeField] private GameOverController gameOverController;
 
     void Start()
     {
         snakeDirection = Direction.UP;
-        timeBeforeNextStep = StepDuration;
-        powerupDuration = CoolDownTime;
+        timeBeforeNextStep = stepDuration;
         unitsToMove = 1;
 
         headPos = new Vector2(transform.position.x, transform.position.y);
@@ -42,7 +38,7 @@ public class SnakeController : MonoBehaviour
 
     void Update()
     {
-        if (!IsUsingCursor)
+        if (!isUsingCursor)
         {
             if (Input.GetKeyDown(KeyCode.W))
             {
@@ -89,7 +85,7 @@ public class SnakeController : MonoBehaviour
                 }
             }
         } 
-        else if(IsUsingCursor)
+        else if(isUsingCursor)
         {
             if (Input.GetKeyDown(KeyCode.UpArrow))
             {
@@ -137,38 +133,13 @@ public class SnakeController : MonoBehaviour
             }
         }
 
-        if((IsShieldActivated) || (IsDoubleScore) || (IsSpeedIncreased))
-        {
-            powerupDuration -= Time.deltaTime;
-        }
-
-        if (powerupDuration < 0)
-        {
-            if(IsShieldActivated)
-            {
-                Debug.Log(gameObject.tag + "'s shield deactivated");
-                IsShieldActivated = false;
-            }
-            if (IsDoubleScore)
-            {
-                Debug.Log(gameObject.tag + "'s double the score powerup deactivated");
-                IsDoubleScore = false;
-            }
-            if (IsSpeedIncreased)
-            {
-                Debug.Log(gameObject.tag + "'s increase in speed powerup deactivated");
-                IsSpeedIncreased = false;
-            }
-            powerupDuration = CoolDownTime;
-        }
-
         timeBeforeNextStep -= Time.deltaTime;
 
         if (timeBeforeNextStep < 0)
         {
             PlayCycle();
 
-            timeBeforeNextStep = StepDuration;
+            timeBeforeNextStep = stepDuration;
         }
     }
 
@@ -177,44 +148,25 @@ public class SnakeController : MonoBehaviour
         GameObject massGainSegment = Instantiate(SnakeSegments[SnakeSegments.Count - 1], SnakeSegments[SnakeSegments.Count - 1].transform.position, SnakeSegments[SnakeSegments.Count - 1].transform.rotation, this.transform.parent);
 
         SnakeSegments.Add(massGainSegment);
-
-        if(IsDoubleScore)
-        {
-            scoreController.IncreaseScore(2);
-        }
-        else
-        {
-            scoreController.IncreaseScore(1);
-        }
+        
+        scoreController.IncreaseScore(incrementalScore);
     }
 
     public void RemoveSnakeSegment()
     {
-        if(SnakeSegments.Count <= 2)
-        {
-            Debug.Log(gameObject.tag + " low on Health, cannot burn mass");
-        }
-        else
+        if(SnakeSegments.Count >= 2)
         {
             GameObject massBurnSegment = SnakeSegments[SnakeSegments.Count - 1];
             SnakeSegments.Remove(SnakeSegments[SnakeSegments.Count - 1]);
 
             Destroy(massBurnSegment);
         }
-     
-        scoreController.DecreaseScore(1);
+
+        scoreController.DecreaseScore(incrementalScore);
     }
 
     private void PlayCycle()
     {
-        if(IsSpeedIncreased)
-        {
-            unitsToMove = 2;
-        }
-        else
-        {
-            unitsToMove = 1;
-        }
         for (int i = (SnakeSegments.Count-1); i > 0; i--)
         {
             SnakeSegments[i].transform.position = SnakeSegments[i - 1].transform.position;   
@@ -263,18 +215,57 @@ public class SnakeController : MonoBehaviour
     {
         if (collision.gameObject.tag == "Segment")
         {
-            if (IsShieldActivated)
-            {
-                Debug.Log("Player2's shield activated");
-            }
-            else
+            if (!isShieldActivated)
             {
                 Debug.Log("Game Over!");
                 gameOverController.SnakeDied();
-
-                Time.timeScale = 0;
             }
         }
+
+        if (collision.gameObject.tag == "Powerup")
+        {
+            collision.gameObject.GetComponent<IPowerup>().ApplyPowerup(this);
+        }
+    }
+
+    public void ActivateDoubleScore()
+    {
+        incrementalScore = 2;
+
+        StartCoroutine(DoubleScoreCooldownCoroutine());
+    }
+
+    public void ActivateShield()
+    {
+        isShieldActivated = true;
+        StartCoroutine(ShieldCooldownCoroutine());
+    }
+
+    public void ActivateIncreaseSpeed()
+    {
+        stepDuration = stepDuration / 3;
+
+        StartCoroutine(SpeedCooldownCoroutine());
+    }
+
+    IEnumerator DoubleScoreCooldownCoroutine()
+    {
+        yield return new WaitForSeconds(CoolDownTime);
+
+        incrementalScore = 1;
+
+    }
+    IEnumerator ShieldCooldownCoroutine()
+    {
+        yield return new WaitForSeconds(CoolDownTime);
+
+        isShieldActivated = false;
+    }
+    IEnumerator SpeedCooldownCoroutine()
+    {
+        yield return new WaitForSeconds(CoolDownTime);
+
+        stepDuration = stepDuration * 3;
     }
 }
 

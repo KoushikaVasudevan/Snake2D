@@ -4,13 +4,13 @@ using UnityEngine;
 
 public class Spawner : MonoBehaviour
 {
-    public GameObject Food;
-    public GameObject MassBurner;
-    public GameObject SheildPowerup;
-    public GameObject DoubleScorePowerup;
-    public GameObject IncreaseSpeedPowerup;
+    [SerializeField] private FoodController foodController;
+    [SerializeField] private MassBurnerController massBurnerController;
+    [SerializeField] private ShieldPowerupController sheildPowerupController;
+    [SerializeField] private DoubleScoreController doubleScoreController;
+    [SerializeField] private IncreaseSpeedPowerup increaseSpeedPowerup;
 
-    public float timeBetweenSpawns;
+    [SerializeField] private float timeBetweenSpawns;
 
     public GameObject Snake1;
     public GameObject Snake2;
@@ -47,23 +47,23 @@ public class Spawner : MonoBehaviour
 
             if (randomNumber == 0)
             {
-                objectToSpawn = Instantiate(Food, new Vector2(spawnPosition.x, spawnPosition.y), Food.transform.rotation);
+                objectToSpawn = Instantiate(foodController.gameObject, new Vector2(spawnPosition.x, spawnPosition.y), foodController.gameObject.transform.rotation);
             }
             else if (randomNumber == 1)
             {
-                objectToSpawn = Instantiate(MassBurner, new Vector2(spawnPosition.x, spawnPosition.y), MassBurner.transform.rotation);
+                objectToSpawn = Instantiate(massBurnerController.gameObject, new Vector2(spawnPosition.x, spawnPosition.y), massBurnerController.gameObject.transform.rotation);
             }
             else if (randomNumber == 2)
             {
-                objectToSpawn = Instantiate(SheildPowerup, new Vector2(spawnPosition.x, spawnPosition.y), SheildPowerup.transform.rotation);
+                objectToSpawn = Instantiate(sheildPowerupController.gameObject, new Vector2(spawnPosition.x, spawnPosition.y), sheildPowerupController.gameObject.transform.rotation);
             }
             else if (randomNumber == 3)
             {
-                objectToSpawn = Instantiate(DoubleScorePowerup, new Vector2(spawnPosition.x, spawnPosition.y), DoubleScorePowerup.transform.rotation);
+                objectToSpawn = Instantiate(doubleScoreController.gameObject, new Vector2(spawnPosition.x, spawnPosition.y), doubleScoreController.gameObject.transform.rotation);
             }
             else if (randomNumber == 4)
             {
-                objectToSpawn = Instantiate(IncreaseSpeedPowerup, new Vector2(spawnPosition.x, spawnPosition.y), IncreaseSpeedPowerup.transform.rotation);
+                objectToSpawn = Instantiate(increaseSpeedPowerup.gameObject, new Vector2(spawnPosition.x, spawnPosition.y), increaseSpeedPowerup.gameObject.transform.rotation);
             }
 
             Destroy(objectToSpawn, 10);

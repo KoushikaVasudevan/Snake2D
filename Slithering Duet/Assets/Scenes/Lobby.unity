@@ -1885,9 +1885,9 @@ MonoBehaviour:
   SoundTypes:
   - soundType: 0
     soundClip: {fileID: 8300000, guid: c38ed630bf5966d4c9ab50c133ed6f72, type: 3}
-  - soundType: 3
-    soundClip: {fileID: 8300000, guid: 90dffb6ee925d274f981b40a68429734, type: 3}
   - soundType: 2
+    soundClip: {fileID: 8300000, guid: 90dffb6ee925d274f981b40a68429734, type: 3}
+  - soundType: 3
     soundClip: {fileID: 8300000, guid: 7e27e99bed21168488a2bdd79fb7ae87, type: 3}
   - soundType: 1
     soundClip: {fileID: 8300000, guid: 23f2f7f3490b1d44fbd615623ff4956a, type: 3}
@@ -2645,7 +2645,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 5.        makes the snake speedup (move faster).
+  m_text: 5.        makes the snake move faster.
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}

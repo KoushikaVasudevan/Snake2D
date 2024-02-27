@@ -29,7 +29,7 @@ public class ScoreController : MonoBehaviour
 
     public void DecreaseScore(int decreaseScore)
     {
-        if(score == 0)
+        if (score <= 0)
         {
             score = 0;
         }
@@ -37,6 +37,7 @@ public class ScoreController : MonoBehaviour
         {
             score -= decreaseScore;
         }
+
         RefreshUI();
     }
 

@@ -9,6 +9,10 @@ TagManager:
   - MassBurner
   - Segment
   - Player2
+  - DoubleScore
+  - IncreaseSpeed
+  - Shield
+  - Powerup
   layers:
   - Default
   - TransparentFX
