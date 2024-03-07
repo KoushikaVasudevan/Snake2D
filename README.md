@@ -2,6 +2,9 @@
 Unity 2D - Snake game
 
 
+Game play video - https://drive.google.com/file/d/1_qz7XCNDuyTStwZkSKNFsqe22H1gxy9q/view?usp=sharing
+
+
 ![Snake2DLobby](https://github.com/KoushikaVasudevan/Snake2D/assets/10025387/46dd4154-23bc-4f07-97e3-6ca1089f0a21)
 
 
