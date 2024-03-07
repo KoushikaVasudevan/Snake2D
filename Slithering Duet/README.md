@@ -1,3 +1,3 @@
 A 2D two player snake game made with unity.
 
-Game play video - https://drive.google.com/file/d/1_qz7XCNDuyTStwZkSKNFsqe22H1gxy9q/view?usp=sharing
+Game play video - https://www.youtube.com/watch?v=DRs7k9g0xWA
